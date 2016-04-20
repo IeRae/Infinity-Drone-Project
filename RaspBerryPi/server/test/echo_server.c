@@ -2,9 +2,10 @@
 #include <sys/stat.h>
 #include <arpa/inet.h>
 #include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
 
-#define MAXBUF 1024
+#define MAXBUF 1023
 
 int main(int argc, char **argv){
 	
@@ -16,17 +17,17 @@ int main(int argc, char **argv){
 	
 	client_len = sizeof(clientaddr);
 	
-	if((serversockfd = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP)) == -1 ){
+	if((server_sockfd = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP)) == -1 ){
 		perror("socket error : ");
 		exit(0);
 	}
 	
 	bzero(&serveraddr, sizeof(serveraddr));
 	serveraddr.sin_family = AF_INET;
-	serveraddr.sin_addr.s_addr = htol(INADDR_ANY);
-	serveraddr.sin_port = htos(atoi(argv[1]));
+	serveraddr.sin_addr.s_addr = htonl(INADDR_ANY);
+	serveraddr.sin_port = htons(atoi(argv[1]));
 	
-	bind(serversockfd,(struct sockaddr *) &serveraddr, sizeof(serveraddr));
+	bind(server_sockfd,(struct sockaddr *) &serveraddr, sizeof(serveraddr));
 	listen(server_sockfd, 5);
 	
 	while(1){
