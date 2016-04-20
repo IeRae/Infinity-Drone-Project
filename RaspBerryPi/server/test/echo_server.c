@@ -1,3 +1,6 @@
+/*구 버전의 라이브러리를 사용 segement fault core dump 현상이 발생
+ubunto의 core정보 확인후에도 같은 결과
+*/
 #include <sys/socket.h>
 #include <sys/stat.h>
 #include <arpa/inet.h>
